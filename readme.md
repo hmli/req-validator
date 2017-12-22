@@ -57,3 +57,24 @@ validated, err := v.Validate(req)
 
 这个值一定是一个整数, 且取值范围是 2<=n<=10
 
+## 自定义 Rule
+
+实现 `Rule` interface, 然后调用 `RegisterRule()` 进行注册
+```golang
+
+type IntRule struct {}
+
+func (d *IntRule) Validate(key, tagValue, value string) (bool, error) {
+	if value == "" {
+		return true, nil
+	}
+	for i:= 0; i<len(value); i ++ {
+		if !isDigit(value[i]) {
+			return false, errors.New("parameter '" + key + "' with value '" + value + "' is not an integer")
+		}
+	}
+	return true, nil
+}
+
+RegisterRule("int...", &IntRule{})
+```
