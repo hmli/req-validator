@@ -1,0 +1,8 @@
+error.log
+info.log
+erp_datas
+erp_datas_bak
+.idea/*
+build.sh
+*.log
+.DS_Store
